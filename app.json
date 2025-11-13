@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ai-chat-client",
-    "slug": "ai-chat-client",
+    "name": "character-chat-client",
+    "slug": "character-chat-client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

@@ -1,5 +1,5 @@
 {
-  "name": "ai-chat-client",
+  "name": "character-chat-client",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
