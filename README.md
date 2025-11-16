@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+# Character Chat Client
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+AI 캐릭터와 대화할 수 있는 React Native 앱입니다.
 
-## Get started
+## 기술 스택
 
-1. Install dependencies
+- **Framework**: React Native + Expo
+- **언어**: TypeScript
+- **상태 관리**: Zustand
+- **API 통신**: Axios + React Query
+- **라우팅**: Expo Router
+- **스타일링**: React Native StyleSheet
 
-   ```bash
-   npm install
-   ```
+## 프로젝트 구조
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+├── pages/              # 페이지 컴포넌트
+│   └── ChatScreen.tsx
+├── components/         # 재사용 가능한 컴포넌트
+│   ├── chat/          # 채팅 관련 컴포넌트
+│   ├── character/     # 캐릭터 관련 컴포넌트
+│   └── common/        # 공통 컴포넌트
+├── services/          # API 서비스 레이어
+│   └── api/
+├── stores/            # Zustand 상태 관리
+├── types/             # TypeScript 타입 정의
+├── hooks/             # 커스텀 훅
+└── utils/             # 유틸리티 함수
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 시작하기
 
-## Learn more
+### 설치
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 개발 서버 실행
 
-## Join the community
+```bash
+npm start
+```
 
-Join our community of developers creating universal apps.
+### 플랫폼별 실행
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+# iOS
+npm run ios
+
+# Android
+npm run android
+
+# Web
+npm run web
+```
+
+## 주요 기능
+
+- ✅ 캐릭터별 채팅
+- ✅ 캐릭터 전환
+- ✅ 다크 모드 지원
+- ✅ 실시간 메시지 전송
+- 🚧 API 서버 연동 (예정)
+
+## 개발 환경
+
+- Node.js >= 20.19.4
+- npm 또는 pnpm
