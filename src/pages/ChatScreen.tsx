@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, FlatList, TouchableOpacity, SafeAreaView, StyleSheet, useColorScheme } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useChatStore } from '@/src/stores/useChatStore';
 import { ChatMessage } from '@/src/components/chat/ChatMessage';
@@ -59,12 +60,10 @@ export const ChatScreen: React.FC = () => {
     if (!currentCharacter && MOCK_CHARACTERS.length > 0) {
       setCurrentCharacter(MOCK_CHARACTERS[0]);
     }
-  }, []);
+  }, [currentCharacter, setCharacters, setCurrentCharacter]);
 
   // 현재 캐릭터의 메시지 가져오기
-  const currentMessages = currentCharacter
-    ? messagesByCharacter[currentCharacter.id] || []
-    : [];
+  const currentMessages = currentCharacter ? messagesByCharacter[currentCharacter.id] || [] : [];
 
   // 메시지 전송 처리
   const handleSendMessage = async (content: string) => {
@@ -117,9 +116,7 @@ export const ChatScreen: React.FC = () => {
     return (
       <SafeAreaView style={[styles.container, isDark && styles.containerDark]}>
         <View style={styles.emptyContainer}>
-          <Text style={[styles.emptyText, isDark && styles.textDark]}>
-            캐릭터를 선택해주세요
-          </Text>
+          <Text style={[styles.emptyText, isDark && styles.textDark]}>캐릭터를 선택해주세요</Text>
         </View>
       </SafeAreaView>
     );
@@ -129,17 +126,12 @@ export const ChatScreen: React.FC = () => {
     <SafeAreaView style={[styles.container, isDark && styles.containerDark]}>
       {/* 헤더 */}
       <View style={[styles.header, isDark && styles.headerDark]}>
-        <TouchableOpacity
-          onPress={() => setShowCharacterSwitcher(true)}
-          style={styles.headerButton}
-        >
+        <TouchableOpacity onPress={() => setShowCharacterSwitcher(true)} style={styles.headerButton}>
           <View style={[styles.avatar, isDark && styles.avatarDark]}>
             <Text style={styles.avatarText}>{currentCharacter.avatar}</Text>
           </View>
           <View style={styles.headerInfo}>
-            <Text style={[styles.characterName, isDark && styles.textDark]}>
-              {currentCharacter.name}
-            </Text>
+            <Text style={[styles.characterName, isDark && styles.textDark]}>{currentCharacter.name}</Text>
             <Text style={[styles.characterStatus, isDark && styles.textSecondaryDark]}>
               {isTyping ? '입력 중...' : currentCharacter.description}
             </Text>
@@ -147,34 +139,28 @@ export const ChatScreen: React.FC = () => {
           <Ionicons name="chevron-down" size={20} color={isDark ? '#999' : '#666'} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuButton}>
+        {/* <TouchableOpacity style={styles.menuButton}>
           <Ionicons name="ellipsis-vertical" size={20} color={isDark ? '#999' : '#666'} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* 메시지 리스트 */}
       {currentMessages.length === 0 ? (
         <View style={styles.emptyChat}>
           <Text style={styles.emptyAvatarLarge}>{currentCharacter.avatar}</Text>
-          <Text style={[styles.emptyName, isDark && styles.textDark]}>
-            {currentCharacter.name}
-          </Text>
+          <Text style={[styles.emptyName, isDark && styles.textDark]}>{currentCharacter.name}</Text>
           <Text style={[styles.emptyDescription, isDark && styles.textSecondaryDark]}>
             {currentCharacter.description}
           </Text>
-          <Text style={styles.emptyHint}>
-            대화를 시작해보세요!
-          </Text>
+          <Text style={styles.emptyHint}>대화를 시작해보세요!</Text>
         </View>
       ) : (
         <FlatList
           ref={flatListRef}
           data={currentMessages}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           contentContainerStyle={styles.messageList}
-          renderItem={({ item }) => (
-            <ChatMessage message={item} characterAvatar={currentCharacter.avatar} />
-          )}
+          renderItem={({ item }) => <ChatMessage message={item} characterAvatar={currentCharacter.avatar} />}
           onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
         />
       )}
